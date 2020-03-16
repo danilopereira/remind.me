@@ -23,3 +23,7 @@ spring:
   jackson:
     serialization:
       write-dates-as-timestamps: false
+
+github:
+  api:
+    url: 'https://api.github.com'

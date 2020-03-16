@@ -1,8 +1,12 @@
 package com.danilopereira.remidme.user.controller;
 
+import com.danilopereira.remidme.code.repositories.dto.RepositoryDTO;
 import com.danilopereira.remidme.user.dto.UserRequestDTO;
 import com.danilopereira.remidme.user.dto.UserResponseDTO;
 import com.danilopereira.remidme.user.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,6 +40,11 @@ public class UserController {
     public ResponseEntity.HeadersBuilder<?> deleteUser(String uuid){
         userService.deleteUser(uuid);
         return ResponseEntity.noContent();
+    }
+
+    @GetMapping("/{uuid}/repositories")
+    public ResponseEntity<Page<RepositoryDTO>> getRepositories(@PathVariable String uuid, @PageableDefault(size = 10)Pageable pageable){
+        return ResponseEntity.ok(userService.getRepositories(uuid, pageable));
     }
 
 

@@ -1,4 +1,4 @@
-package com.danilopereira.remidme.user.entity;
+package com.danilopereira.remidme.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

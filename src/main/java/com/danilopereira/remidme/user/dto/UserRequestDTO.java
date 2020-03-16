@@ -1,6 +1,6 @@
 package com.danilopereira.remidme.user.dto;
 
-import com.danilopereira.remidme.user.entity.User;
+import com.danilopereira.remidme.user.model.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

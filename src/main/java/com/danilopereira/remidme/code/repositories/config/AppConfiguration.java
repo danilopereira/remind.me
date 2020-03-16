@@ -1,4 +1,4 @@
-package com.danilopereira.remidme.user.config;
+package com.danilopereira.remidme.code.repositories.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
