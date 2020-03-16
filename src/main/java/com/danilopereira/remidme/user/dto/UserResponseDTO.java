@@ -12,14 +12,14 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserResponseDTO {
     private String uuid;
     private String firstName;
     private String surname;
     private String position;
     private String githubUrl;
 
-    public UserResponse (User user){
+    public UserResponseDTO(User user){
         this.uuid = user.getUuid();
         this.firstName = user.getFirstName();
         this.surname = user.getSurName();

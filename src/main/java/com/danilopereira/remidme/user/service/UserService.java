@@ -1,15 +1,15 @@
 package com.danilopereira.remidme.user.service;
 
-import com.danilopereira.remidme.user.dto.UserRequest;
-import com.danilopereira.remidme.user.dto.UserResponse;
+import com.danilopereira.remidme.user.dto.UserRequestDTO;
+import com.danilopereira.remidme.user.dto.UserResponseDTO;
 
 public interface UserService {
 
-    UserResponse createUser(UserRequest userRequest);
+    UserResponseDTO createUser(UserRequestDTO userRequestDTO);
 
-    UserResponse getUser(String uuid);
+    UserResponseDTO getUser(String uuid);
 
-    UserResponse updateUser(String uuid, UserRequest userRequest);
+    UserResponseDTO updateUser(String uuid, UserRequestDTO userRequestDTO);
 
     void deleteUser(String uuid);
 
