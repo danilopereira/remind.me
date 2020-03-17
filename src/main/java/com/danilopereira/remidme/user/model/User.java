@@ -23,6 +23,8 @@ import java.io.Serializable;
 @Builder
 public class User implements Serializable {
 
+    private static final long serialVersionUID = -2882970718922727087L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

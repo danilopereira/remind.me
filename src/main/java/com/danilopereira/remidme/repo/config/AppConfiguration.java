@@ -1,4 +1,4 @@
-package com.danilopereira.remidme.code.repositories.config;
+package com.danilopereira.remidme.repo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,5 +19,6 @@ public class AppConfiguration {
         RestTemplate restTemplate = new RestTemplate(httpRequestFactory);
         return restTemplate;
     }
+
 
 }

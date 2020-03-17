@@ -6,15 +6,27 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class UserRequestDTO {
 
+    @NotNull
+    @NotBlank
     private String firstName;
+    @NotNull
+    @NotBlank
     private String surname;
+    @NotNull
+    @NotBlank
     private String position;
+    @NotNull
+    @NotBlank
     private String githubUrl;
 
 
@@ -24,6 +36,7 @@ public class UserRequestDTO {
                 .surName(this.getSurname())
                 .position(this.getPosition())
                 .githubUrl(this.getGithubUrl())
+                .uuid(UUID.randomUUID().toString())
                 .build();
     }
 
