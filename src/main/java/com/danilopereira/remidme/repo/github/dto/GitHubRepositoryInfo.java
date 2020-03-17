@@ -1,4 +1,4 @@
-package com.danilopereira.remidme.repo.external.github.dto;
+package com.danilopereira.remidme.repo.github.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

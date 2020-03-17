@@ -27,3 +27,8 @@ spring:
 github:
   api:
     url: 'https://api.github.com'
+
+httpConnectionPool:
+  timeout: 20000
+  maxConnections: 20
+  keepAliveTime: 60000

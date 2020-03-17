@@ -1,6 +1,6 @@
-package com.danilopereira.remidme.repo.external.github.client;
+package com.danilopereira.remidme.repo.github.client;
 
-import com.danilopereira.remidme.repo.external.github.dto.GitHubRepositoryInfo;
+import com.danilopereira.remidme.repo.github.dto.GitHubRepositoryInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

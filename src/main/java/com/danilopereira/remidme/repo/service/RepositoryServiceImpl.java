@@ -1,8 +1,8 @@
 package com.danilopereira.remidme.repo.service;
 
 import com.danilopereira.remidme.repo.dto.RepositoryDTO;
-import com.danilopereira.remidme.repo.external.github.client.GithubClient;
-import com.danilopereira.remidme.repo.external.github.dto.GitHubRepositoryInfo;
+import com.danilopereira.remidme.repo.github.client.GithubClient;
+import com.danilopereira.remidme.repo.github.dto.GitHubRepositoryInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
