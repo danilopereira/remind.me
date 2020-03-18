@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 
@@ -31,8 +33,10 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO){
-        return ResponseEntity.ok(userService.createUser(userRequestDTO));
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO, UriComponentsBuilder uriComponentsBuilder){
+        final UserResponseDTO userResponse = userService.createUser(userRequestDTO);
+        final UriComponents uriComponents = uriComponentsBuilder.path("/users/{uuid}").buildAndExpand(userResponse.getUuid());
+        return ResponseEntity.created(uriComponents.toUri()).body(userResponse);
     }
 
     @GetMapping("/{uuid}")
