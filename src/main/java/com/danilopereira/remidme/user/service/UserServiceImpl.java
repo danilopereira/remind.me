@@ -7,9 +7,9 @@ import com.danilopereira.remidme.user.dto.UserResponseDTO;
 import com.danilopereira.remidme.user.exception.UserNotFoundException;
 import com.danilopereira.remidme.user.model.User;
 import com.danilopereira.remidme.user.repository.UserRepository;
+import com.danilopereira.remidme.user.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,6 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
         User user = userRequestDTO.getEntity();
-
         user = userRepository.save(user);
 
         return  new UserResponseDTO(user);
@@ -40,65 +39,48 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO getUser(String uuid) {
-        final User user = userRepository.findByUuid(uuid);
-
-        if(user == null){
+        try {
+            final User user = getValidUser(uuid);
+            return new UserResponseDTO(user);
+        } catch (UserNotFoundException e) {
             return null;
         }
-
-        return new UserResponseDTO(user);
     }
 
     @Override
     public UserResponseDTO updateUser(String uuid, UserRequestDTO userRequestDTO) throws UserNotFoundException {
-        final User user = userRepository.findByUuid(uuid);
-
-        if(user == null){
-            throw new UserNotFoundException();
-        }
+        final User user = getValidUser(uuid);
 
         user.setFirstName(userRequestDTO.getFirstName());
         user.setSurName(userRequestDTO.getSurname());
         user.setGithubUrl(userRequestDTO.getGithubUrl());
         user.setPosition(userRequestDTO.getPosition());
+
         return new UserResponseDTO(userRepository.save(user));
     }
 
     @Override
     public void deleteUser(String uuid) throws UserNotFoundException {
-        final User user = userRepository.findByUuid(uuid);
-
-        if(user == null){
-            throw new UserNotFoundException();
-        }
-
+        final User user = getValidUser(uuid);
         userRepository.delete(user);
     }
 
     @Override
     public Page<RepositoryDTO> getRepositories(String uuid, Pageable pageable) throws UserNotFoundException {
-        final User user = userRepository.findByUuid(uuid);
+        final User user = getValidUser(uuid);
 
-        if(user == null){
-            throw new UserNotFoundException();
-        }
-
-        final String username = getUsername(user);
+        final String username = UserUtils.extractUserName(user.getGithubUrl());
         final List<RepositoryDTO> repositoriesByUser = repositoryService.getRepositories(username);
 
-        return generatePageableResource(pageable, repositoriesByUser);
+        return UserUtils.generatePageableResource(pageable, repositoriesByUser);
     }
 
-    private Page<RepositoryDTO> generatePageableResource(Pageable pageable, List<RepositoryDTO> repositoriesByUser) {
-        final int start = (int) pageable.getOffset();
-        final int end = (Math.min((start + pageable.getPageSize()), repositoriesByUser.size()));
+    private User getValidUser(String uuid) throws UserNotFoundException {
+        final User user = userRepository.findByUuid(uuid);
 
-        return new PageImpl<>(repositoriesByUser.subList(start, end), pageable, repositoriesByUser.size());
-    }
-
-    private String getUsername(User user) {
-        final String githubUrl = user.getGithubUrl();
-        final int beginIndex = githubUrl.lastIndexOf("/");
-        return githubUrl.substring(beginIndex);
+        if (user == null) {
+            throw new UserNotFoundException();
+        }
+        return user;
     }
 }

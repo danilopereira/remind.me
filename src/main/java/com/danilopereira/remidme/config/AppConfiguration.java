@@ -1,4 +1,4 @@
-package com.danilopereira.remidme.repo.config;
+package com.danilopereira.remidme.config;
 
 import org.apache.http.HeaderElement;
 import org.apache.http.HeaderElementIterator;
