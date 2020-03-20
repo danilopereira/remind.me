@@ -57,9 +57,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity.HeadersBuilder<?> deleteUser(String uuid) throws UserNotFoundException {
+    public ResponseEntity deleteUser(@PathVariable String uuid) throws UserNotFoundException {
         userService.deleteUser(uuid);
-        return ResponseEntity.noContent();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{uuid}/repositories")

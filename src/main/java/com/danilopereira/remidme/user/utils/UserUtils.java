@@ -19,7 +19,7 @@ public final class UserUtils {
     }
 
     public static Page<RepositoryDTO> generatePageableResource(Pageable pageable, List<RepositoryDTO> repositoriesByUser) {
-        final int start = (int) pageable.getOffset() - 1;
+        final int start = (int) pageable.getOffset();
         final int end = (Math.min((start + pageable.getPageSize()), repositoriesByUser.size()));
 
         return new PageImpl<>(repositoriesByUser.subList(start, end), pageable, repositoriesByUser.size());
