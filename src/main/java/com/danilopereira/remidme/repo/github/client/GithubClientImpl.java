@@ -2,6 +2,7 @@ package com.danilopereira.remidme.repo.github.client;
 
 import com.danilopereira.remidme.repo.exception.GeneralException;
 import com.danilopereira.remidme.repo.github.dto.GitHubRepositoryInfo;
+import com.danilopereira.remidme.user.utils.UserUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -37,7 +38,7 @@ public class GithubClientImpl implements GithubClient {
             final String endpoint = String.format(URI_USER_REPOS, username);
             final String getRepositoriesUrl = githubAPIUrl.concat(endpoint);
             HttpHeaders headers = new HttpHeaders();
-            headers.add("Authorization", "Bearer "+ accessToken);
+            headers.add("Authorization", "Bearer "+ UserUtils.decodeAccessToken(accessToken));
             final ResponseEntity<GitHubRepositoryInfo[]> response = restTemplate.exchange(getRepositoriesUrl, HttpMethod.GET, new HttpEntity<>("parameters", headers), GitHubRepositoryInfo[].class);
             return Arrays.asList(response.getBody());
         }catch (RuntimeException e){

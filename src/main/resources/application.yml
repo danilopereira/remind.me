@@ -27,7 +27,8 @@ spring:
 github:
   api:
     url: 'https://api.github.com'
-    access_token: 'ab48081c9aada6b377a83a7caffb3cd82f33c082'
+#    access_token: 'ab48081c9aada6b377a83a7caffb3cd82f33c082'
+    access_token: 'YWI0ODA4MWM5YWFkYTZiMzc3YTgzYTdjYWZmYjNjZDgyZjMzYzA4Mg=='
 
 httpConnectionPool:
   timeout: 20000
