@@ -16,6 +16,7 @@ public class GitHubRepositoryInfo {
     @JsonProperty("full_name")
     private String fullName;
 
+    @JsonProperty("private")
     private boolean privateFlag;
 
     private Owner owner;
@@ -56,7 +57,7 @@ public class GitHubRepositoryInfo {
     @JsonProperty("branches_url")
     private String branchesUrl;
 
-    @JsonProperty("")
+    @JsonProperty("tags_url")
     private String tagsUrl;
 
     @JsonProperty("blobs_url")
@@ -122,10 +123,10 @@ public class GitHubRepositoryInfo {
     @JsonProperty("pulls_url")
     private String pullsUrl;
 
-    @JsonProperty("notifications_url")
+    @JsonProperty("milestones_url")
     private String milestonesUrl;
 
-    @JsonProperty("")
+    @JsonProperty("notifications_url")
     private String notificationsUrl;
 
     @JsonProperty("labels_url")
@@ -207,4 +208,8 @@ public class GitHubRepositoryInfo {
 
     @JsonProperty("default_branch")
     private String defaultBranch;
+
+    private License license;
+
+    private Permissions permissions;
 }
