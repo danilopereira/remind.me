@@ -65,6 +65,11 @@ curl --location --request GET 'localhost:12000/users/{{uuid
 }}/repositories'
 ```
 
+The GET USER REPOSITORIES endpoint returns a paginated response, thus you can filter the results using the query parameters:
+- size = the number of objects per page
+- page = the specific page
+- sort = the desired field to be sorted and the order. Ex: name,asc
+
 P.S.: You must change the {{uuid}} fields by the uuid generated on the create user endpoint.
 
 Also, If you prefer, you can just import the Postman collection attached to this project (remind.me.postman_collection.json).

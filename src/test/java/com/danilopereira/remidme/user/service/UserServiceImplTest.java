@@ -94,7 +94,8 @@ public class UserServiceImplTest {
     @Test
     public void testGetRepositories() throws UserNotFoundException {
         when(repositoryService.getRepositories(anyString())).thenReturn(mockRepositories());
-        Pageable pageable = PageRequest.of(1, 1, Sort.unsorted());
+        Pageable pageable = PageRequest.of(0, 1, Sort.unsorted());
+
         final Page<RepositoryDTO> repositories = userService.getRepositories(UUID.randomUUID().toString(), pageable);
 
         assertNotNull(repositories.getContent());
