@@ -4,6 +4,7 @@ import com.danilopereira.remidme.repo.dto.RepositoryDTO;
 import com.danilopereira.remidme.repo.service.RepositoryService;
 import com.danilopereira.remidme.user.dto.UserRequestDTO;
 import com.danilopereira.remidme.user.dto.UserResponseDTO;
+import com.danilopereira.remidme.user.exception.UserAlreadyExistsException;
 import com.danilopereira.remidme.user.exception.UserNotFoundException;
 import com.danilopereira.remidme.user.model.User;
 import com.danilopereira.remidme.user.repository.UserRepository;
@@ -30,7 +31,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponseDTO createUser(UserRequestDTO userRequestDTO) {
+    public UserResponseDTO createUser(UserRequestDTO userRequestDTO) throws UserAlreadyExistsException {
+        final User userByGithubUrl = userRepository.findByGithubUrl(userRequestDTO.getGithubUrl());
+
+        if(userByGithubUrl != null){
+            throw new UserAlreadyExistsException();
+        }
+
         User user = userRequestDTO.getEntity();
         user = userRepository.save(user);
 

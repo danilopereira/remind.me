@@ -1,5 +1,6 @@
 package com.danilopereira.remidme.repo.github.client;
 
+import com.danilopereira.remidme.repo.exception.GeneralException;
 import com.danilopereira.remidme.repo.github.dto.GitHubRepositoryInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,12 +32,17 @@ public class GithubClientImpl implements GithubClient {
     }
 
     @Override
-    public List<GitHubRepositoryInfo> getRepositoriesByUser(String username) {
-        final String endpoint = String.format(URI_USER_REPOS, username);
-        final String getRepositoriesUrl = githubAPIUrl.concat(endpoint);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer "+ accessToken);
-        final ResponseEntity<GitHubRepositoryInfo[]> response = restTemplate.exchange(getRepositoriesUrl, HttpMethod.GET, new HttpEntity<>("parameters", headers), GitHubRepositoryInfo[].class);
-        return Arrays.asList(response.getBody());
+    public List<GitHubRepositoryInfo> getRepositoriesByUser(String username) throws GeneralException {
+        try{
+            final String endpoint = String.format(URI_USER_REPOS, username);
+            final String getRepositoriesUrl = githubAPIUrl.concat(endpoint);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Authorization", "Bearer "+ accessToken);
+            final ResponseEntity<GitHubRepositoryInfo[]> response = restTemplate.exchange(getRepositoriesUrl, HttpMethod.GET, new HttpEntity<>("parameters", headers), GitHubRepositoryInfo[].class);
+            return Arrays.asList(response.getBody());
+        }catch (RuntimeException e){
+            throw new GeneralException();
+        }
+
     }
 }

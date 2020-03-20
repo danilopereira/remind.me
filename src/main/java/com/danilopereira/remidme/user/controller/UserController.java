@@ -3,6 +3,7 @@ package com.danilopereira.remidme.user.controller;
 import com.danilopereira.remidme.repo.dto.RepositoryDTO;
 import com.danilopereira.remidme.user.dto.UserRequestDTO;
 import com.danilopereira.remidme.user.dto.UserResponseDTO;
+import com.danilopereira.remidme.user.exception.UserAlreadyExistsException;
 import com.danilopereira.remidme.user.exception.UserNotFoundException;
 import com.danilopereira.remidme.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO, UriComponentsBuilder uriComponentsBuilder){
+    public ResponseEntity<UserResponseDTO> createUser(@RequestBody @Valid UserRequestDTO userRequestDTO, UriComponentsBuilder uriComponentsBuilder) throws UserAlreadyExistsException {
         final UserResponseDTO userResponse = userService.createUser(userRequestDTO);
         final UriComponents uriComponents = uriComponentsBuilder.path("/users/{uuid}").buildAndExpand(userResponse.getUuid());
         return ResponseEntity.created(uriComponents.toUri()).body(userResponse);
